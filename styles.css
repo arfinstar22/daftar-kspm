@@ -225,3 +225,5 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); -webkit-tap-highlight-c
   .pills span { padding: .7rem 1.2rem; }
   .check input { width: 1.35rem; height: 1.35rem; }
 }
+#btnCard { margin-top: .8rem; }
+@media (max-width: 560px) { .sendbox .btn { width: 100%; } }

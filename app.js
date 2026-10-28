@@ -223,6 +223,107 @@
     setTimeout(function () { sending = false; }, 3000);
   }
 
+  /* ---------- kartu gambar (canvas, dilampirkan manual di WA bila perlu) ---------- */
+  function wrapLines(x, text, maxW) {
+    var words = String(text).split(/\s+/), lines = [], cur = "";
+    words.forEach(function (w) {
+      var t = cur ? cur + " " + w : w;
+      if (x.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; }
+      else cur = t;
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  async function makeCardBlob(d) {
+    try { await document.fonts.ready; } catch (e) {}
+    var W = 1080, H = 1640, M = 80;
+    var cv = document.createElement("canvas");
+    cv.width = W; cv.height = H;
+    var x = cv.getContext("2d");
+    x.fillStyle = "#FAF6EE"; x.fillRect(0, 0, W, H);
+    x.fillStyle = "#5C0A0A"; x.fillRect(0, 0, W, 330);
+    x.fillStyle = "#C9A227"; x.fillRect(0, 330, W, 10);
+    document.querySelectorAll(".logo-slot img").forEach(function (img, i) {
+      try { if (img.complete && img.naturalWidth) x.drawImage(img, i === 0 ? 70 : 880, 95, 130, 130); } catch (e) {}
+    });
+    x.textAlign = "center";
+    x.fillStyle = "#FFFFFF"; x.font = "700 68px Fraunces, Georgia, serif";
+    x.fillText("KARTU PENDAFTARAN", W / 2, 140);
+    x.fillStyle = "#E7D48A"; x.font = "600 44px Fraunces, Georgia, serif";
+    x.fillText("Pengurus KSPM 2026", W / 2, 195);
+    x.fillStyle = "#F3E3C8"; x.font = "26px 'IBM Plex Sans', sans-serif";
+    x.fillText("Galeri Investasi BEI — Univ. Dayanu Ikhsanuddin", W / 2, 245);
+    x.textAlign = "left";
+    var y = 430;
+    function section(t) {
+      x.font = "700 34px 'IBM Plex Sans', sans-serif"; x.fillStyle = "#5C0A0A";
+      x.fillText(t, M, y); y += 14;
+      x.fillStyle = "#C9A227"; x.fillRect(M, y, 64, 6); y += 46;
+    }
+    function field(label, value) {
+      x.font = "700 30px 'IBM Plex Sans', sans-serif";
+      var lw = x.measureText(label + ": ").width;
+      x.fillStyle = "#5C0A0A";
+      x.fillText(label + ":", M, y);
+      x.font = "30px 'IBM Plex Sans', sans-serif"; x.fillStyle = "#1E1410";
+      var lines = wrapLines(x, value, W - M * 2 - lw);
+      x.fillText(lines[0], M + lw, y);
+      for (var i = 1; i < lines.length; i++) { y += 46; x.fillText(lines[i], M, y); }
+      y += 52;
+    }
+    section("DATA DIRI");
+    field("Nama", d.nama);
+    field("NIM", d.nim);
+    field("Jenis kelamin", d.jk);
+    field("Prodi", d.prodi + " (Semester " + d.semester + ")");
+    field("Status", "Mahasiswa Aktif");
+    y += 10;
+    section("DOMISILI & KONTAK");
+    field("Alamat", d.alamat);
+    field("No. WA", normalizeWA(d.wa));
+    field("Email", d.email);
+    field("Instagram", d.ig || "-");
+    field("Info dari", d.sumber || "-");
+    y += 10;
+    section("KELENGKAPAN");
+    field("SPM 1", d.spm1);
+    field("Pengalaman", d.pengalaman || "-");
+    field("Divisi", d.divisi);
+    if (d.kendala) field("Kendala", d.kendala);
+    y += 10;
+    section("KOMITMEN");
+    field("Ikut seleksi", "Ya");
+    field("Data jujur", "Ya");
+    x.fillStyle = "#C9A227"; x.fillRect(M, H - 200, W - M * 2, 4);
+    x.textAlign = "center";
+    x.font = "700 58px Fraunces, Georgia, serif"; x.fillStyle = "#5C0A0A";
+    x.fillText(d.reg, W / 2, H - 120);
+    x.font = "24px 'IBM Plex Sans', sans-serif"; x.fillStyle = "#6B5D4F";
+    x.fillText("Pendaftaran tidak dipungut biaya apapun", W / 2, H - 60);
+    return new Promise(function (res) { cv.toBlob(res, "image/png"); });
+  }
+  async function shareCard() {
+    toast("Membuat kartu gambar…");
+    try {
+      var d = collect(); d.reg = regNum();
+      var blob = await makeCardBlob(d);
+      if (!blob) { toast("Gagal membuat gambar."); return; }
+      var file = new File([blob], "kartu-" + d.reg + ".png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: "Kartu Pendaftaran KSPM 2026" });
+      } else {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = file.name;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+        toast("Kartu tersimpan — lampirkan manual di chat WA bila perlu.");
+      }
+    } catch (e) {
+      if (!e || e.name !== "AbortError") toast("Gagal membuat gambar.");
+    }
+  }
+
   /* ---------- periode ---------- */
   function gate() {
     if (PREVIEW) { toast("Mode pratinjau (?preview=1) — batas periode dinonaktifkan."); return true; }
@@ -259,6 +360,7 @@
     });
     $("btnBack").addEventListener("click", function () { if (step > 1) show(step - 1); });
     $("btnWA").addEventListener("click", sendWA);
+    $("btnCard").addEventListener("click", shareCard);
     document.querySelectorAll("#stepsList li").forEach(function (li) {
       li.style.cursor = "pointer";
       li.addEventListener("click", function () {

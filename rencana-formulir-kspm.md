@@ -151,6 +151,8 @@ Catatan teknis: seluruh pesan di-`encodeURIComponent`; panjang pesan tipikal < 1
 - **Isi kartu:** kop (logo Unidayan + KSPM — *butuh file logo dari panitia, sementara placeholder*), judul "Kartu Pendaftaran Pengurus KSPM 2026", nomor registrasi otomatis (`KSPM26-XXXX`), semua data pendaftar, tanggal kirim, tanda tangan digital (nama terang), QR kecil berisi ringkasan teks (opsional, library ringan).
 - **Alternatif** (bila diminta): `html2canvas` + `jsPDF` untuk unduh langsung tanpa dialog print — plus ~300 KB, layout piksel (kurang tajam). Default tetap print-CSS.
 
+> **Pengganti visual (28 Okt 2026, sesuai permintaan user): kartu gambar PNG via `<canvas>`** — tombol "Simpan / bagikan kartu gambar" di langkah 5 menggambar kartu 1080×1640 (kop marun + logo + seluruh isian + no. registrasi) lalu memakai Web Share API (`navigator.share` berkas, jalan di Chrome Android → bagikan langsung ke WhatsApp) dengan fallback unduh otomatis. Gambar **tidak** terkirim otomatis bersama teks WA (batas platform) — pendaftar melampirkannya manual bila admin meminta.
+
 ---
 
 ## 8. Tech stack yang diusulkan
