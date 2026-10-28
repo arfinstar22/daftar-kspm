@@ -101,41 +101,43 @@ Aturan navigasi: tidak bisa lanjut sebelum langkah saat ini valid; tombol "kemba
 Saat tombol diklik, browser membuka:
 
 ```
-https://wa.me/6282278813449?text=<pesan ter-encode>
+https://wa.me/628136170550?text=<pesan ter-encode>
 ```
 
-Template pesan (memakai format tebal WhatsApp `*...*`). **Tujuan tunggal: Angle (`628136170550`)** — satu tombol, sesuai keputusan user. Batasan platform: `wa.me` hanya membuka chat dengan draf pesan; penekanan tombol kirim tetap dilakukan pendaftar di aplikasi WhatsApp (tidak ada cara kirim-sepenuhnya-otomatis tanpa WhatsApp Business API berbayar).
+Template pesan: judul tebal + blok monospace berisi seluruh data dengan label
+rata kiri (padding 17 karakter), lalu catatan miring. Di dalam blok monospace,
+spasi selalu sejajar dan angka/email **tidak** diubah WhatsApp menjadi link.
+**Tujuan tunggal: Angle (`628136170550`)** — satu tombol.
 
-```
-*PENDAFTARAN PENGURUS KSPM 2026*
-Galeri Investasi BEI — Univ. Dayanu Ikhsanuddin
---------------------------------
-*DATA DIRI*
-Nama       : {nama}
-NIM        : {nim}
-Jenis kel. : {jk}
-Prodi      : {prodi} (Semester {semester})
-Status     : Mahasiswa Aktif
+    *PENDAFTARAN PENGURUS KSPM 2026*
+    Galeri Investasi BEI — Univ. Dayanu Ikhsanuddin
+    ```
+    DATA DIRI
+    Nama             : {nama}
+    NIM              : {nim}
+    Jenis kelamin    : {jk}
+    Prodi            : {prodi} (Semester {semester})
+    Status           : Mahasiswa Aktif
 
-*DOMISILI & KONTAK*
-Alamat (Baubau) : {alamat}
-No. WA          : {wa}
-Email           : {email}
-Instagram       : {ig}
+    DOMISILI & KONTAK
+    Alamat (Baubau)  : {alamat}
+    No. WA           : {wa}
+    Email            : {email}
+    Instagram        : {ig}
+    Info dari        : {sumber}
 
-*KELENGKAPAN*
-Sertifikat SPM 1 : {sudah/belum}
-Pengalaman       : {pengalaman}
-Divisi diminati  : {divisi}
-Info dari        : {sumber}
+    KELENGKAPAN
+    Sertifikat SPM 1 : {spm1}
+    Pengalaman       : {pengalaman}
+    Divisi diminati  : {divisi}
+    Kendala          : {kendala, bila ada}
 
-*KOMITMEN*
-Bersedia mengikuti seleksi & kegiatan: Ya
-Data diisi dengan jujur: Ya
-
-Dikirim via formulir web pada {tanggal jam}
-_Pendaftaran tidak dipungut biaya apapun._
-```
+    KOMITMEN
+    Ikut seleksi     : Ya
+    Data jujur       : Ya
+    No. registrasi   : {reg}
+    ```
+    _Pendaftaran tidak dipungut biaya apapun._
 
 Catatan teknis: seluruh pesan di-`encodeURIComponent`; panjang pesan tipikal < 1.500 karakter (jauh di bawah batas WA).
 

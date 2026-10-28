@@ -169,38 +169,39 @@
   }
 
   /* ---------- pesan WA ---------- */
+  function row(label, value) {
+    return String(label).padEnd(17, " ") + ": " + value;
+  }
   function buildMessage(d) {
-    var L = [];
-    L.push("*PENDAFTARAN PENGURUS KSPM 2026*");
-    L.push("Galeri Investasi BEI — Univ. Dayanu Ikhsanuddin");
-    L.push("--------------------------------");
-    L.push("*DATA DIRI*");
-    L.push("Nama       : " + d.nama);
-    L.push("NIM        : " + d.nim);
-    L.push("Jenis kel. : " + d.jk);
-    L.push("Prodi      : " + d.prodi + " (Semester " + d.semester + ")");
-    L.push("Status     : Mahasiswa Aktif");
-    L.push("");
-    L.push("*DOMISILI & KONTAK*");
-    L.push("Alamat (Baubau) : " + d.alamat);
-    L.push("No. WA          : " + normalizeWA(d.wa));
-    L.push("Email           : " + d.email);
-    L.push("Instagram       : " + (d.ig || "-"));
-    L.push("");
-    L.push("*KELENGKAPAN*");
-    L.push("Sertifikat SPM 1 : " + d.spm1);
-    L.push("Pengalaman       : " + (d.pengalaman || "-"));
-    L.push("Divisi diminati  : " + d.divisi);
-    L.push("Info dari        : " + (d.sumber || "-"));
-    if (d.kendala) L.push("Kendala          : " + d.kendala);
-    L.push("");
-    L.push("*KOMITMEN*");
-    L.push("Bersedia mengikuti seleksi & kegiatan: Ya");
-    L.push("Data diisi dengan jujur: Ya");
-    L.push("No. registrasi: " + d.reg);
-    L.push("");
-    L.push("_Pendaftaran tidak dipungut biaya apapun._");
-    return L.join("\n");
+    var B = [];
+    B.push("DATA DIRI");
+    B.push(row("Nama", d.nama));
+    B.push(row("NIM", d.nim));
+    B.push(row("Jenis kelamin", d.jk));
+    B.push(row("Prodi", d.prodi + " (Semester " + d.semester + ")"));
+    B.push(row("Status", "Mahasiswa Aktif"));
+    B.push("");
+    B.push("DOMISILI & KONTAK");
+    B.push(row("Alamat (Baubau)", d.alamat));
+    B.push(row("No. WA", normalizeWA(d.wa)));
+    B.push(row("Email", d.email));
+    B.push(row("Instagram", d.ig || "-"));
+    B.push(row("Info dari", d.sumber || "-"));
+    B.push("");
+    B.push("KELENGKAPAN");
+    B.push(row("Sertifikat SPM 1", d.spm1));
+    B.push(row("Pengalaman", d.pengalaman || "-"));
+    B.push(row("Divisi diminati", d.divisi));
+    if (d.kendala) B.push(row("Kendala", d.kendala));
+    B.push("");
+    B.push("KOMITMEN");
+    B.push(row("Ikut seleksi", "Ya"));
+    B.push(row("Data jujur", "Ya"));
+    B.push(row("No. registrasi", d.reg));
+    return "*PENDAFTARAN PENGURUS KSPM 2026*\n" +
+      "Galeri Investasi BEI \u2014 Univ. Dayanu Ikhsanuddin\n" +
+      "```\n" + B.join("\n") + "\n```\n" +
+      "_Pendaftaran tidak dipungut biaya apapun._";
   }
 
   var sending = false;
