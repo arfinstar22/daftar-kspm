@@ -117,7 +117,7 @@ a { color: var(--oxblood); }
 
 /* ===== Panel form ===== */
 .form { min-width: 0; }
-.panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+.panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; scroll-margin-top: 12px; }
 .panel h2 { font-size: 1.5rem; }
 .panel h2::after { content: ""; display: block; width: 3rem; height: 3px; background: var(--champagne); margin-top: .4rem; border-radius: 2px; }
 .field { margin: 1rem 0; }

@@ -120,7 +120,7 @@
   }
 
   /* ---------- navigasi ---------- */
-  function show(n) {
+  function show(n, scroll) {
     step = n;
     document.querySelectorAll(".panel").forEach(function (p) {
       p.classList.toggle("hidden", +p.dataset.panel !== n);
@@ -134,7 +134,10 @@
     $("btnBack").style.visibility = n === 1 ? "hidden" : "visible";
     $("btnNext").classList.toggle("hidden", n === TOTAL);
     if (n === TOTAL) renderReview();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (scroll !== false) {
+      var panel = document.querySelector('.panel[data-panel="' + n + '"]');
+      if (panel) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   /* ---------- ringkasan ---------- */
@@ -270,7 +273,7 @@
       });
     });
     if (!gate()) return;
-    show(1);
+    show(1, false);
   }
 
   document.readyState === "loading"
