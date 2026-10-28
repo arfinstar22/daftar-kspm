@@ -244,15 +244,22 @@
     x.fillStyle = "#5C0A0A"; x.fillRect(0, 0, W, 330);
     x.fillStyle = "#C9A227"; x.fillRect(0, 330, W, 10);
     document.querySelectorAll(".logo-slot img").forEach(function (img, i) {
-      try { if (img.complete && img.naturalWidth) x.drawImage(img, i === 0 ? 70 : 880, 95, 130, 130); } catch (e) {}
+      try { if (img.complete && img.naturalWidth) x.drawImage(img, i === 0 ? 60 : 900, 100, 120, 120); } catch (e) {}
     });
     x.textAlign = "center";
-    x.fillStyle = "#FFFFFF"; x.font = "700 68px Fraunces, Georgia, serif";
-    x.fillText("KARTU PENDAFTARAN", W / 2, 140);
-    x.fillStyle = "#E7D48A"; x.font = "600 44px Fraunces, Georgia, serif";
-    x.fillText("Pengurus KSPM 2026", W / 2, 195);
+    x.fillStyle = "#FFFFFF";
+    var tSize = 56;
+    x.font = "700 " + tSize + "px Fraunces, Georgia, serif";
+    var maxT = W - 2 * (60 + 120 + 30);
+    if (x.measureText("KARTU PENDAFTARAN").width > maxT) {
+      tSize = Math.floor(tSize * maxT / x.measureText("KARTU PENDAFTARAN").width);
+      x.font = "700 " + tSize + "px Fraunces, Georgia, serif";
+    }
+    x.fillText("KARTU PENDAFTARAN", W / 2, 135);
+    x.fillStyle = "#E7D48A"; x.font = "600 40px Fraunces, Georgia, serif";
+    x.fillText("Pengurus KSPM 2026", W / 2, 190);
     x.fillStyle = "#F3E3C8"; x.font = "26px 'IBM Plex Sans', sans-serif";
-    x.fillText("Galeri Investasi BEI — Univ. Dayanu Ikhsanuddin", W / 2, 245);
+    x.fillText("Galeri Investasi BEI — Univ. Dayanu Ikhsanuddin", W / 2, 242);
     x.textAlign = "left";
     var y = 430;
     function section(t) {
