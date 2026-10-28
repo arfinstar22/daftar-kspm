@@ -225,5 +225,15 @@ body { padding-bottom: env(safe-area-inset-bottom, 0px); -webkit-tap-highlight-c
   .pills span { padding: .7rem 1.2rem; }
   .check input { width: 1.35rem; height: 1.35rem; }
 }
-#btnCard { margin-top: .8rem; }
-@media (max-width: 560px) { .sendbox .btn { width: 100%; } }
+
+
+
+.send-steps { text-align: left; font-size: .9rem; background: var(--paper);
+  border: 1px solid var(--champagne); border-radius: 12px;
+  padding: .8rem 1rem; max-width: 38rem; margin: 0 auto 1rem; }
+.btn-row { display: flex; gap: .6rem; justify-content: center; align-items: stretch; }
+.btn-row .btn-wa, .btn-row .btn { flex: 1 1 0; min-width: 0; }
+.btn-row .btn-wa { font-size: .98rem; padding: .85rem .5rem; justify-content: center; text-align: center; }
+@media (max-width: 560px) {
+  .btn-row .btn-wa, .btn-row #btnCard { font-size: .85rem; padding: .8rem .4rem; }
+}
