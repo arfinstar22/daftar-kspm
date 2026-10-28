@@ -154,7 +154,7 @@
       ["DOMISILI & KONTAK", ""],
       ["Alamat di Baubau", d.alamat], ["No. WA", normalizeWA(d.wa)],
       ["Email", d.email], ["Instagram", dash(d.ig)], ["Tahu info dari", dash(d.sumber)],
-      ["MOTIVASI & KOMITMEN", ""],
+      ["KOMITMEN", ""],
       ["Pengalaman organisasi", dash(d.pengalaman)], ["Divisi diminati", d.divisi],
       ["Kendala/jadwal", dash(d.kendala)],
       ["No. registrasi", d.reg]
