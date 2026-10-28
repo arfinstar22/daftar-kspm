@@ -10,7 +10,7 @@
 
   var step = 1;
   var TOTAL = 5;
-  var STEP_NAMES = ["", "Data diri", "Akademik", "Domisili & kontak", "Motivasi & komitmen", "Periksa & kirim"];
+  var STEP_NAMES = ["", "Data diri", "Akademik", "Domisili & kontak", "Komitmen", "Periksa & kirim"];
 
   /* ---------- util ---------- */
   function $(id) { return document.getElementById(id); }
@@ -52,7 +52,7 @@
       alamat: val("alamat"), wa: val("wa"), email: val("email"),
       ig: val("ig"), sumber: val("sumber"),
       pengalaman: val("pengalaman"), divisi: radioVal("divisi"),
-      motivasi: val("motivasi"), kendala: val("kendala"),
+      kendala: val("kendala"),
       komitmen: $("komitmen").checked, jujur: $("jujur").checked,
       reg: localStorage.getItem(STORE_KEY + "-reg") || ""
     };
@@ -112,7 +112,6 @@
     }
     if (n === 4) {
       ok = setErr("divisi", radioVal("divisi") ? "" : "Pilih divisi yang diminati.") && ok;
-      ok = setErr("motivasi", val("motivasi").length >= 30 ? "" : "Ceritakan motivasimu (min. 30 karakter).") && ok;
       ok = setErr("komitmen", $("komitmen").checked ? "" : "Centang kesediaan mengikuti seleksi & kegiatan.") && ok;
       ok = setErr("jujur", $("jujur").checked ? "" : "Centang pernyataan kejujuran data.") && ok;
     }
@@ -157,7 +156,7 @@
       ["Email", d.email], ["Instagram", dash(d.ig)], ["Tahu info dari", dash(d.sumber)],
       ["MOTIVASI & KOMITMEN", ""],
       ["Pengalaman organisasi", dash(d.pengalaman)], ["Divisi diminati", d.divisi],
-      ["Motivasi", d.motivasi], ["Kendala/jadwal", dash(d.kendala)],
+      ["Kendala/jadwal", dash(d.kendala)],
       ["No. registrasi", d.reg]
     ];
     $("reviewCard").innerHTML =
@@ -194,9 +193,6 @@
     L.push("Divisi diminati  : " + d.divisi);
     L.push("Info dari        : " + (d.sumber || "-"));
     if (d.kendala) L.push("Kendala          : " + d.kendala);
-    L.push("");
-    L.push("*MOTIVASI*");
-    L.push(d.motivasi);
     L.push("");
     L.push("*KOMITMEN*");
     L.push("Bersedia mengikuti seleksi & kegiatan: Ya");

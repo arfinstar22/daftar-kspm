@@ -47,13 +47,13 @@ Nomor WA ternormalisasi (format internasional untuk link `wa.me`):
 Form dibagi **5 langkah wizard** (penomoran di sini legitimate karena memang sekuens, bukan hiasan):
 
 ```
-[1 Data Diri] → [2 Akademik] → [3 Domisili & Kontak] → [4 Motivasi & Komitmen] → [5 Periksa & Kirim]
+[1 Data Diri] → [2 Akademik] → [3 Domisili & Kontak] → [4 Komitmen] → [5 Periksa & Kirim]
 ```
 
 1. **Data Diri** — nama lengkap, NIM, jenis kelamin.
 2. **Akademik** — program studi/jurusan, fakultas (otomatis mengikuti jurusan bila bisa), semester/angkatan, status mahasiswa aktif (checkbox), sertifikat SPM 1: sudah / belum (radio).
 3. **Domisili & Kontak** — alamat tinggal di Baubau, nomor WA aktif, email aktif, akun Instagram (opsional), darimana tahu info ini (dropdown: teman, Instagram, poster kampus, dll — untuk evaluasi panitia).
-4. **Motivasi & Komitmen** — pengalaman organisasi (textarea singkat), motivasi bergabung (textarea), divisi/bidang yang diminati (lihat pertanyaan terbuka no. 3), kesediaan mengikuti seluruh rangkaian seleksi & kegiatan (checkbox wajib), pernyataan kejujuran data (checkbox wajib).
+4. **Komitmen** — pengalaman organisasi (textarea singkat), divisi/bidang yang diminati (Edukasi/Kegiatan/Kominfo), kendala/jadwal (opsional), kesediaan mengikuti seluruh rangkaian seleksi & kegiatan (checkbox wajib), pernyataan kejujuran data (checkbox wajib).
 5. **Periksa & Kirim** — ringkasan semua isian dalam format kartu → tombol tunggal **"Kirim via WhatsApp (Angle)"** yang membuka chat admin dengan pesan jadi yang tinggal dikirim.
 
 Aturan navigasi: tidak bisa lanjut sebelum langkah saat ini valid; tombol "kembali" tidak menghapus isian; progress tersimpan otomatis (refresh tidak hilang).
@@ -75,9 +75,8 @@ Aturan navigasi: tidak bisa lanjut sebelum langkah saat ini valid; tombol "kemba
 | 7 | Nomor WhatsApp aktif | tel | dinormalisasi ke `62…`, 10–15 digit |
 | 8 | Email aktif | email | format email valid |
 | 9 | Sertifikat SPM 1 | radio: Sudah / Belum | wajib pilih (sesuai poster: opsional dimiliki, tapi statusnya wajib diisi) |
-| 10 | Motivasi bergabung | textarea | min. 30 karakter |
-| 11 | Kesediaan ikut seleksi & kegiatan | checkbox | wajib centang |
-| 12 | Pernyataan kejujuran data | checkbox | wajib centang |
+| 10 | Kesediaan ikut seleksi & kegiatan | checkbox | wajib centang |
+| 11 | Pernyataan kejujuran data | checkbox | wajib centang |
 
 ### 5.2 Opsional (disarankan — nilai tambah "lebih canggih" dari Google Form)
 
@@ -129,9 +128,6 @@ Sertifikat SPM 1 : {sudah/belum}
 Pengalaman       : {pengalaman}
 Divisi diminati  : {divisi}
 Info dari        : {sumber}
-
-*MOTIVASI*
-{motivasi}
 
 *KOMITMEN*
 Bersedia mengikuti seleksi & kegiatan: Ya
